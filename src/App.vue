@@ -1,13 +1,8 @@
 <template>
   <div id="app">
     <router-view class="router-view" />
-    <h5 class="bottom-text">我也是有底线的..</h5>
-    <mt-tabbar fixed v-model="selected">
-      <mt-tab-item
-        v-for="(item, index) in $router.options.routes"
-        :key="index"
-        :id="item.name"
-      >
+    <mt-tabbar fixed v-model="selected" v-show="$store.state.tabbarView">
+      <mt-tab-item v-for="(item, index) in router" :key="index" :id="item.name">
         <i slot="icon" :class="item.icon"></i>
         {{ item.name }}
       </mt-tab-item>
@@ -20,6 +15,11 @@ export default {
     return {
       selected: "主页"
     };
+  },
+  computed: {
+    router() {
+      return this.$router.options.routes.filter(v => v.show);
+    }
   },
   watch: {
     selected(n) {
@@ -43,21 +43,6 @@ html
     margin 0
     #app
       font-size .16rem
-      .bottom-text
-        margin-bottom .6rem
-        text-align center
-        position relative
-        color #bbb
-        &:before, &:after
-          content ''
-          display block
-          position absolute
-          top 0
-          bottom 0
-          width 30%
-          height .01rem
-          background-color #ccc
-          margin auto
-        &:after
-          right 0
+      .router-view
+        // margin-bottom .5rem
 </style>

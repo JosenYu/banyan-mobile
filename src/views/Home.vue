@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <mt-header title="主页"> </mt-header>
     <!-- 轮播图 swipe -->
     <div class="home__swipe">
       <mt-swipe>
@@ -20,20 +21,39 @@
       </mt-swipe>
     </div>
     <!--  -->
+    <mt-actionsheet :actions="actions" v-model="sheetVisible"> </mt-actionsheet>
+    <mt-button type="primary" @click="sheetVisible = true">
+      primary
+    </mt-button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
 export default {
   name: "Home",
   components: {},
   data() {
+    let self = this;
     return {
-      selected: "1"
+      selected: "1",
+      actions: [
+        {
+          name: "a",
+          method: () => {
+            self.aa();
+          }
+        }
+      ],
+      sheetVisible: false
     };
-  }
+  },
+  methods: {
+    aa() {
+      console.log(1);
+    }
+  },
+  mounted() {}
 };
 </script>
 <style lang="stylus" scoped>
